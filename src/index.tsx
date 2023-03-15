@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import PreviousRoomContextProvider from "./context/PreviousRoomContextProvider";
+import SocketContextProvider from "./context/SocketContextProvider";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <PreviousRoomContextProvider>
+  <SocketContextProvider>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </PreviousRoomContextProvider>
+  </SocketContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

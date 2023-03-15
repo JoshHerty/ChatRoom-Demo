@@ -7,19 +7,30 @@ import {
 import "./App.css";
 import ChatRoom from "./components/ChatRoom";
 import Home from "./components/Home";
-import * as io from "socket.io-client";
+// import * as io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
+// const socket: io.Socket = io.connect("http://localhost:3001");
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/Home" element={<Home socket={socket} />} />
+          <Route
+            path="/Home"
+            element={
+              <Home
+              // socket={socket}
+              />
+            }
+          />
           <Route
             path="/ChatRoom/:roomId"
-            element={<ChatRoom socket={socket} />}
+            element={
+              <ChatRoom
+              // socket={socket}
+              />
+            }
           />
           {/* WildCard */}
           <Route path="*" element={<Navigate to="/Home" />} />

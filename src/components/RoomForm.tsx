@@ -1,15 +1,12 @@
 import "./RoomForm.css";
-import * as io from "socket.io-client";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PreviousRoomContext from "../context/PreviousRoomContext";
+import SocketContext from "../context/SocketContext";
+import { socket } from "../service/socket";
 
-interface Props {
-  socket: io.Socket;
-}
-
-const RoomForm = ({ socket }: Props) => {
-  const { lastRoomId, setLastRoomId } = useContext(PreviousRoomContext);
+const RoomForm = () => {
+  const { lastRoomId, setLastRoomId, setChatRoomMessages } =
+    useContext(SocketContext);
   const [roomId, setRoomId] = useState("");
   const navigate = useNavigate();
 
@@ -23,6 +20,7 @@ const RoomForm = ({ socket }: Props) => {
         if (lastRoomId) {
           socket.emit("leave_room", lastRoomId);
           console.log(`left ${lastRoomId}`);
+          setChatRoomMessages([]);
         }
         socket.emit("join_room", roomId);
         console.log(`joined ${roomId}`);

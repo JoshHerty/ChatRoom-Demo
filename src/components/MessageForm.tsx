@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./MessageForm.css";
-import * as io from "socket.io-client";
 import { useParams } from "react-router-dom";
+import { socket } from "../service/socket";
+import SocketContext from "../context/SocketContext";
 
-interface Props {
-  socket: io.Socket;
-}
-
-const Form = ({ socket }: Props) => {
+const Form = () => {
+  const { chatRoomMessages, setChatRoomMessages } = useContext(SocketContext);
   const [message, setMessage] = useState("");
   const { roomId } = useParams();
 
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const copyOfChatRoomMessages: string[] = [...chatRoomMessages];
+
     if (message) {
       socket.emit("send_message", { message, roomId });
+
+      copyOfChatRoomMessages.push(message);
+      setChatRoomMessages(copyOfChatRoomMessages);
+
       setMessage("");
     }
   };

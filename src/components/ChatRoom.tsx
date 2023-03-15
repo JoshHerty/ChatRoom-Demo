@@ -1,34 +1,49 @@
 import "./ChatRoom.css";
 import MessageForm from "./MessageForm";
-import * as io from "socket.io-client";
 import { useContext, useEffect, useState } from "react";
 import RoomForm from "./RoomForm";
-import PreviousRoomContext from "../context/PreviousRoomContext";
+import SocketContext from "../context/SocketContext";
 import { Navigate } from "react-router-dom";
+import { socket } from "../service/socket";
 
-interface Props {
-  socket: io.Socket;
-}
-
-const ChatRoom = ({ socket }: Props) => {
-  const { lastRoomId } = useContext(PreviousRoomContext);
-  const [messageRecieved, setMessageRecieved] = useState("");
+const ChatRoom = () => {
+  const { lastRoomId, chatRoomMessages, setChatRoomMessages } =
+    useContext(SocketContext);
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      // console.log(data);
-      setMessageRecieved(data);
+    const copyOfChatRoomMessages: string[] = [...chatRoomMessages];
+
+    socket.on("receive_message", (message: string) => {
+      copyOfChatRoomMessages.push(message);
+      setChatRoomMessages(copyOfChatRoomMessages);
     });
-  }, [socket]);
+
+    socket.on("user_disconnected", (message) => {
+      copyOfChatRoomMessages.push(message);
+      setChatRoomMessages(copyOfChatRoomMessages);
+    });
+
+    socket.on("user_joined", (message) => {
+      copyOfChatRoomMessages.push(message);
+      setChatRoomMessages(copyOfChatRoomMessages);
+    });
+
+    socket.on("user_left", (message) => {
+      copyOfChatRoomMessages.push(message);
+      setChatRoomMessages(copyOfChatRoomMessages);
+    });
+  }, [chatRoomMessages, socket]);
 
   return (
     <div className="ChatRoom">
       {lastRoomId ? (
         <>
-          <RoomForm socket={socket} />
-          <MessageForm socket={socket} />
-          <h1>Message:</h1>
-          {messageRecieved}
+          <RoomForm />
+          <MessageForm />
+          <h1>Messages:</h1>
+          {chatRoomMessages.map((message, index) => (
+            <p key={index}>{message}</p>
+          ))}
         </>
       ) : (
         <>
