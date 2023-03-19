@@ -1,0 +1,29 @@
+.Messages:last-child {
+  border-top: solid #343842 3px;
+}
+
+.Messages,
+.class-avatar {
+  display: flex;
+  align-items: center;
+}
+
+.Messages {
+  justify-content: space-between;
+  border-bottom: solid #343842 3px;
+  margin: 0;
+  padding: 25px 0;
+  width: 650px;
+}
+
+.Messages:first-child {
+  border: none;
+}
+
+.Messages .avatar {
+  height: 65px;
+}
+
+.Messages .current-time {
+  margin: 0 10px 0 0;
+}

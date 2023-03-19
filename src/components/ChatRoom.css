@@ -1,0 +1,9 @@
+.messages-container {
+  border: solid /* #30343f */ red 1px;
+  border-radius: 10px;
+  height: 490px;
+  width: 675px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+}

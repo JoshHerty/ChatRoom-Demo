@@ -4,34 +4,17 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
-import ChatRoom from "./components/ChatRoom";
 import Home from "./components/Home";
-// import * as io from "socket.io-client";
-
-// const socket: io.Socket = io.connect("http://localhost:3001");
+import ChatRoom from "./components/ChatRoom";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route
-            path="/Home"
-            element={
-              <Home
-              // socket={socket}
-              />
-            }
-          />
-          <Route
-            path="/ChatRoom/:roomId"
-            element={
-              <ChatRoom
-              // socket={socket}
-              />
-            }
-          />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/ChatRoom/:roomId" element={<ChatRoom />} />
           {/* WildCard */}
           <Route path="*" element={<Navigate to="/Home" />} />
         </Routes>
