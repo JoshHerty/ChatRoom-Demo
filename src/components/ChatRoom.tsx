@@ -15,14 +15,20 @@ import "./ChatRoom.css";
 
 const ChatRoom = () => {
   const {
-    lastRoomId,
+    currentRoomId,
     chatRoomMessages,
     setChatRoomMessages,
     userName,
     avatar,
+    avatarsInUse,
+    setAvatarsInUse,
   } = useContext(SocketContext);
 
   useEffect(() => {
+    socket.on("unavailable_avatars", (avatarArray: string[]) => {
+      setAvatarsInUse(avatarArray);
+    });
+
     const copyOfChatRoomMessages: ChatMessage[] = [...chatRoomMessages];
 
     socket.on("receive_message", (message: ChatMessage) => {
@@ -31,7 +37,6 @@ const ChatRoom = () => {
     });
 
     socket.on("user_disconnected", (message: ChatMessage) => {
-      console.log(message);
       copyOfChatRoomMessages.unshift(message);
       setChatRoomMessages(copyOfChatRoomMessages);
     });
@@ -45,15 +50,15 @@ const ChatRoom = () => {
       copyOfChatRoomMessages.unshift(message);
       setChatRoomMessages(copyOfChatRoomMessages);
     });
-  }, [chatRoomMessages, socket]);
+  }, [chatRoomMessages, avatarsInUse, setAvatarsInUse, setChatRoomMessages]);
 
   return (
     <div className="ChatRoom">
-      {lastRoomId ? (
+      {currentRoomId ? (
         <>
           <RoomForm />
           {!avatar ? (
-            <ChooseAvatar />
+            <ChooseAvatar avatarsInUse={avatarsInUse} />
           ) : (
             <>
               <div>
@@ -72,7 +77,7 @@ const ChatRoom = () => {
                 )}
               </div>
 
-              <h2>{`Room ${lastRoomId} Chat`}</h2>
+              <h2>{`Room ${currentRoomId} Chat`}</h2>
               <div>
                 <ul className="messages-container">
                   <Messages />

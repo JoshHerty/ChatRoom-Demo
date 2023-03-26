@@ -1,7 +1,5 @@
-import * as io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 
-// const socketUrl: string = process.env.SOCKET_IO_BASE_URL || "";
+const baseUrl: string = process.env.REACT_APP_API_BASE_URL || "";
 
-// console.log(socketUrl);
-
-export const socket: io.Socket = io.connect("http://localhost:3001");
+export const socket: Socket = io(baseUrl);

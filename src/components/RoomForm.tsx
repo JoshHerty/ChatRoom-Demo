@@ -1,55 +1,49 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { socket } from "../service/socket";
 import SocketContext from "../context/SocketContext";
-import UserData from "../models/UserData";
 import "./RoomForm.css";
 
 const RoomForm = () => {
   const {
-    lastRoomId,
-    setLastRoomId,
+    currentRoomId,
+    setCurrentRoomId,
     setChatRoomMessages,
     userName,
     setUserName,
-    roomId,
-    setRoomId,
     setAvatar,
+    setAvatarsInUse,
   } = useContext(SocketContext);
+
+  const [roomIdInput, setRoomIdInput] = useState<string>("34");
+
   const navigate = useNavigate();
 
   const joinRoom = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const hasLetter = /[a-zA-Z]/.test(roomId);
+    const hasLetter = /[a-zA-Z]/.test(roomIdInput);
 
-    if (!hasLetter) {
-      if (!lastRoomId) {
-        const userData: UserData = { userName: userName, avatar: "" };
-
-        socket.emit("set_data", userData);
-      }
-      if (roomId !== "" && userName !== "") {
-        if (roomId !== lastRoomId) {
-          if (lastRoomId) {
-            socket.emit("leave_room", lastRoomId);
-            console.log(`left ${lastRoomId}`);
-            setChatRoomMessages([]);
-          }
-          socket.emit("join_room", roomId);
-          console.log(`joined ${roomId}`);
-          navigate(`/ChatRoom/${roomId}`);
-          setLastRoomId(roomId);
-          setAvatar("");
-          setRoomId("");
+    if (!hasLetter && roomIdInput !== "" && userName !== "") {
+      if (roomIdInput !== currentRoomId) {
+        if (currentRoomId) {
+          socket.emit("leave_room", currentRoomId);
+          setChatRoomMessages([]);
         }
+        setAvatarsInUse([]);
+        // setChatRoomMessages([]);
+        socket.emit("join_room", roomIdInput);
+        setCurrentRoomId(roomIdInput);
+        setAvatar("");
+        setRoomIdInput("");
+        navigate(`/ChatRoom/${roomIdInput}`);
       }
     }
   };
 
   return (
     <form className="RoomForm" onSubmit={joinRoom}>
-      {!lastRoomId && (
+      {!currentRoomId && (
         <input
           type="text"
           placeholder="User Name"
@@ -60,8 +54,8 @@ const RoomForm = () => {
       <input
         type="text"
         placeholder="Room Number"
-        value={roomId}
-        onChange={(e) => setRoomId(e.target.value)}
+        value={roomIdInput}
+        onChange={(e) => setRoomIdInput(e.target.value)}
       />
       <button>Enter Room</button>
     </form>

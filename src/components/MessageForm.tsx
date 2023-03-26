@@ -33,7 +33,7 @@ const Form = () => {
       socket.emit("send_message", chatMessage);
       copyOfChatRoomMessages.unshift(chatMessage);
       setChatRoomMessages(copyOfChatRoomMessages);
-      console.log(chatMessage);
+      // console.log(chatMessage);
       setMessage("");
     }
   };
