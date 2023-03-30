@@ -7,10 +7,24 @@ h2 {
 }
 
 body {
-  background-color: #30343f;
+  background-color: #21252d;
   color: #a39e9b;
+  font-family: "Happy Monkey", cursive;
 }
 
 h1 {
   color: #f2f3f4;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #21252d;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #a39e9b;
+  border-radius: 5px;
 }

@@ -42,6 +42,9 @@ const ChatRoom = () => {
     });
 
     socket.on("user_joined", (message: ChatMessage) => {
+      if (message.userName === userName) {
+        message.isUsersMessage = true;
+      }
       copyOfChatRoomMessages.unshift(message);
       setChatRoomMessages(copyOfChatRoomMessages);
     });
@@ -50,7 +53,13 @@ const ChatRoom = () => {
       copyOfChatRoomMessages.unshift(message);
       setChatRoomMessages(copyOfChatRoomMessages);
     });
-  }, [chatRoomMessages, avatarsInUse, setAvatarsInUse, setChatRoomMessages]);
+  }, [
+    chatRoomMessages,
+    avatarsInUse,
+    setAvatarsInUse,
+    setChatRoomMessages,
+    userName,
+  ]);
 
   return (
     <div className="ChatRoom">
@@ -60,31 +69,30 @@ const ChatRoom = () => {
           {!avatar ? (
             <ChooseAvatar avatarsInUse={avatarsInUse} />
           ) : (
-            <>
-              <div>
-                <h1>{userName}</h1>
+            <section>
+              <div className="user-info">
+                <p className="user-name">{userName}</p>
                 {avatar === "avatar1" && (
-                  <img className="avatar" src={avatar1} alt="" />
+                  <img className="user-avatar" src={avatar1} alt="avatar 1" />
                 )}
                 {avatar === "avatar2" && (
-                  <img className="avatar" src={avatar2} alt="" />
+                  <img className="user-avatar" src={avatar2} alt="avatar 2" />
                 )}
                 {avatar === "avatar3" && (
-                  <img className="avatar" src={avatar3} alt="" />
+                  <img className="user-avatar" src={avatar3} alt="avatar 3" />
                 )}
                 {avatar === "avatar4" && (
-                  <img className="avatar" src={avatar4} alt="" />
+                  <img className="user-avatar" src={avatar4} alt="avatar 4" />
                 )}
               </div>
-
-              <h2>{`Room ${currentRoomId} Chat`}</h2>
-              <div>
-                <ul className="messages-container">
+              <div className="chat-container">
+                <h2 className="room-id">{`Room ${currentRoomId} Chat`}</h2>
+                <ul className="messages">
                   <Messages />
                 </ul>
                 <MessageForm />
               </div>
-            </>
+            </section>
           )}
         </>
       ) : (

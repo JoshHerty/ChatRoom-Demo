@@ -15,20 +15,25 @@ const Messages = () => {
         <li className="Messages" key={index}>
           <div className="class-avatar">
             {chatMessage.avatar === "avatar1" && (
-              <img className="avatar" src={avatar1} alt="" />
+              <img className="chat-avatar" src={avatar1} alt="" />
             )}
             {chatMessage.avatar === "avatar2" && (
-              <img className="avatar" src={avatar2} alt="" />
+              <img className="chat-avatar" src={avatar2} alt="" />
             )}
             {chatMessage.avatar === "avatar3" && (
-              <img className="avatar" src={avatar3} alt="" />
+              <img className="chat-avatar" src={avatar3} alt="" />
             )}
             {chatMessage.avatar === "avatar4" && (
-              <img className="avatar" src={avatar4} alt="" />
+              <img className="chat-avatar" src={avatar4} alt="" />
+            )}
+            {chatMessage.isUsersMessage ? (
+              <div className="green-circle"></div>
+            ) : (
+              <div className="blank-space"></div>
             )}
             <p>{chatMessage.userName}</p>
           </div>
-          <p>{chatMessage.message}</p>
+          <p className="message">{chatMessage.message}</p>
 
           <p className="current-time">{chatMessage.currentTime}</p>
         </li>

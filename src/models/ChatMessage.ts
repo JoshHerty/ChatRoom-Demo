@@ -4,4 +4,5 @@ export default interface ChatMessage {
   message: string;
   currentTime: string;
   roomId?: string;
+  isUsersMessage?: boolean;
 }

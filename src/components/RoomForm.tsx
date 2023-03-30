@@ -31,7 +31,6 @@ const RoomForm = () => {
           setChatRoomMessages([]);
         }
         setAvatarsInUse([]);
-        // setChatRoomMessages([]);
         socket.emit("join_room", roomIdInput);
         setCurrentRoomId(roomIdInput);
         setAvatar("");

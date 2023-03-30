@@ -1,0 +1,16 @@
+.MessageForm .text-box {
+  width: 100%;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  font-family: "Happy Monkey", cursive;
+  border-radius: 0 0 10px 10px;
+}
+
+.MessageForm .text-box:focus {
+  outline: none;
+  box-shadow: none;
+}

@@ -1,9 +1,49 @@
-.messages-container {
-  border: solid /* #30343f */ red 1px;
+.ChatRoom section {
+  display: flex;
+}
+
+.ChatRoom .user-info {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  margin: 35px;
+  background-color: #2a2f3b;
   border-radius: 10px;
-  height: 490px;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ChatRoom .user-name {
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.ChatRoom .user-avatar {
+  width: 190px;
+}
+
+.ChatRoom .chat-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.ChatRoom .room-id {
+  text-align: center;
+}
+
+.ChatRoom .messages {
+  background-color: #2a2f3b;
+  border-radius: 10px 10px 0 0;
+  height: 530px;
   width: 675px;
   overflow-y: scroll;
   display: flex;
   flex-direction: column-reverse;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ChatRoom .messages::-webkit-scrollbar-track {
+  background-color: #2a2f3b;
 }

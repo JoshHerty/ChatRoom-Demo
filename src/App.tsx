@@ -6,11 +6,10 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home";
 import ChatRoom from "./components/ChatRoom";
-import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Routes>
           <Route path="/Home" element={<Home />} />
