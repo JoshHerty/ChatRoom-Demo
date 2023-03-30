@@ -15,7 +15,7 @@ const RoomForm = () => {
     setAvatarsInUse,
   } = useContext(SocketContext);
 
-  const [roomIdInput, setRoomIdInput] = useState<string>("34");
+  const [roomIdInput, setRoomIdInput] = useState<string>("");
 
   const navigate = useNavigate();
 
